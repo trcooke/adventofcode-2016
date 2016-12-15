@@ -1,5 +1,7 @@
 import sys
 
+import time
+
 
 def decompress1(inp):
     output = ""
@@ -31,11 +33,30 @@ def decompress2(inp):
     return count
 
 
+def decompress2a(inp):
+    count = 0
+    count += len(inp[:inp.find("(")])
+    instr = inp[inp.find("(") + 1:inp.find(")")].split("x")
+    print instr
+    sectionboundaries = (inp.find(")") + 1, inp.find(")") + 1 + int(instr[0]))
+    print sectionboundaries
+    decompsection = inp[sectionboundaries[0]:sectionboundaries[1]] * int(instr[1])
+    print decompsection
+    rest = inp[sectionboundaries[1]:]
+    print rest
+    inp = decompsection + rest
+    count += len(inp)
+    return count
+
+
 def part2():
     line = open(sys.argv[1]).readlines()[0].replace("\n","")
-    decompressed = decompress2(line)
+    decompressed = decompress2a(line)
     return decompressed
 
 
-print "Part1(): " + str(part1())
+# print "Part1(): " + str(part1())
+start = time.time()
 print "Part2(): " + str(part2())
+end = time.time()
+print "Time: " + str(end - start)
